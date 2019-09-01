@@ -51,6 +51,7 @@ def copy_file():
         return
     dir_path1 = os.path.join(os.getcwd(), dir_name)
     dir_path2 = os.path.join(os.getcwd(), file_name)
+
     try:
         shutil.copy2(dir_path1, dir_path2)
         print('файл {} скопирован'.format(dir_name))
@@ -63,7 +64,7 @@ def rm_file():
         return
     dir_path = os.path.join(os.getcwd(), dir_name)
     try:
-        os.remove(dir_name)
+        os.remove(dir_path)
         print('файл {} удалён'.format(dir_name))
     except FileNotFoundError:
         # TODO: Нет проверки на есть файл с таким названием или нет
