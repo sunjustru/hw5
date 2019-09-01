@@ -9,7 +9,7 @@
 # При выборе пунктов 1, 3, 4 программа запрашивает название папки
 # и выводит результат действия: "Успешно создано/удалено/перешел",
 # "Невозможно создать/удалить/перейти"
-# https://www.youtube.com/watch?v=jiZM2p99XO4&feature=youtu.be Типо как работает
+# https://www.youtube.com/watch?v=BaqLcnaSuAQ&feature=youtu.be Типо как работает
 
 import os
 from hw05_easy import *
@@ -96,7 +96,7 @@ while console_utility_bool:
         console_utility_dir  = os.chdir(os.path.split(os.getcwd())[0])
         continue
     elif what_do == 'top':
-        console_utility_dir = console_utility_parent 
+        console_utility_dir = console_utility_parent
         os.chdir(console_utility_dir)
         # console_utility_dir = os.path.split(os.getcwd())[0]
         # print(os.path.split(os.getcwd()), os.chdir(console_utility_dir))
