@@ -15,7 +15,14 @@ import pprint
 
 
 def show_folder(folder):
-    print(os.listdir(folder))
+    def file_or_folder(name):
+        if os.path.isfile(name):
+            return 'файл — ' + name
+        else:
+            return 'папка — ' + name + '/'
+
+    print("\n".join([file_or_folder(itm) for itm in os.listdir(folder)]))
+
 
 def folder_make(folder):
     try:
@@ -56,11 +63,6 @@ console_utility = {
             'f_name': None  # Указываем название сущности (название папки)
         },
         '5': {
-            'name': ['Вернуться в главную директорию: '],
-            'fn': "Тут будет название функции make_folder",
-            'f_name': None  # Указываем название сущности (название папки)
-        },
-        '6': {
             'name': ['Выйти из программы: '],
             'fn': "Тут будет название функции make_folder",
             'f_name': None  # Указываем название сущности (название папки)
@@ -77,10 +79,10 @@ console_utility_dir = os.path.abspath('.')
 
 def build_menu():
     menu_text = '################### МЕНЮ \n'
+    if console_utility_dir != os.path.abspath('.'):
+        menu_text = menu_text + '### [top] — Перейти в главную директорию \n'
+        menu_text = menu_text + '### [back] — Вернуться в предыдущую директорию \n'
     for itm in console_utility['do']:
-        # Если мы находимся в главной директории, то не выводим 5 пункт
-        if itm == '5' and console_utility_dir == os.path.abspath('.'):
-            continue
         menu_text = menu_text + '# [' + itm + '] ' + console_utility['do'][itm]['name'][0] + '\n'
     return menu_text + '###################\n'
 
@@ -89,16 +91,18 @@ while console_utility_bool:
     print(build_menu())
     what_do = input('# Выберите пункт меню: ')
 
+    # Ограничиваем хождение по директориям потомка!
+    if os.path.split(console_utility_dir)[1] != 'hw5.git' and what_do == 'back':
+        console_utility_dir = os.path.split(console_utility_dir)[0]
+        continue
+    elif what_do == 'top':
+        console_utility_dir = os.path.abspath('.')
+
     if what_do in console_utility['do']:
         # Если клиент хочет выйти из программы
-        if int(what_do) == 6:
+        if int(what_do) == 5:
             console_utility_bool = False
             break
-
-        # Пункт для возвращения в главную директоию
-        if int(what_do) == 5:
-            console_utility_dir = os.path.abspath('.')
-            continue
 
         if int(what_do) == 2:
             temp = console_utility_dir
