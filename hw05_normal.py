@@ -10,32 +10,58 @@
 # и выводит результат действия: "Успешно создано/удалено/перешел",
 # "Невозможно создать/удалить/перейти"
 
+import os
 import pprint
+
+def show_folder(folder):
+    print(os.listdir(folder))
+
+def folder_cd(folder):
+    pass
+
+def folder_make(folder):
+    result = False
+    try:
+        os.mkdir(folder)
+        result = True
+    except:
+        print("Не получается создать папку, она уже существует!")
+    return result
+
+def folder_del(folder):
+    result = False
+    try:
+        os.rmdir(folder)
+        result = True
+    except:
+        print("Не получается удалить папку, она не существует")
+    return result
+
 
 console_utility = {
     'do': {
         '1': {
-            'name': 'Перейти в папку',
+            'name': 'Перейти в папку: ',
             'fn': "Тут будет название функции move_folder",
             'f_name': None  # Указываем название сущности (название папки)
         },
         '2': {
-            'name': 'Просмотреть содержимое текущей папки',
-            'fn': "Тут будет название функции show_folder",
+            'name': 'Просмотреть содержимое текущей папки: ',
+            'fn': show_folder,
             'f_name': None  # Указываем название сущности (название папки)
         },
         '3': {
-            'name': 'Удалить папку',
-            'fn': "Тут будет название функции del_folder",
+            'name': 'Удалить папку: ',
+            'fn': folder_del,
             'f_name': None  # Указываем название сущности (название папки)
         },
         '4': {
-            'name': 'Создать папку',
-            'fn': "Тут будет название функции make_folder",
+            'name': 'Создать папку: ',
+            'fn': folder_make,
             'f_name': None  # Указываем название сущности (название папки)
         },
         '5': {
-            'name': 'Выйти из программы',
+            'name': 'Выйти из программы: ',
             'fn': "Тут будет название функции make_folder",
             'f_name': None  # Указываем название сущности (название папки)
         }
@@ -52,11 +78,10 @@ console_utility = {
     }
 }
 
-# pprint.pprint(console_utility)
-
+# Переменные
 console_utility_bool = True
-folder_name = ''
-
+console_utility_dir = '.'
+console_utility_folder_name = None
 
 def build_menu():
     menu_text = ''
@@ -77,15 +102,21 @@ while console_utility_bool:
             console_utility_bool = False
             break
 
-        id   = what_do
+        id = what_do
         name = console_utility['do'][what_do]['name']
-        fn = console_utility['do'][what_do]['fn']
 
         temp = input(name)
+        console_utility_folder_name = temp
+
+        # Запускаем функцию
+        result = console_utility['do'][what_do]['fn'](console_utility_folder_name)
+
+        print(result)
 
 
     else:
         print('Данного действия нет!')
+        print(build_menu())
 
 if console_utility_bool == False:
     print('До свидание!')
