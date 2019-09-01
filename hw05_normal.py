@@ -78,6 +78,7 @@ console_utility_parent = os.path.join(os.getcwd())
 
 def build_menu():
     menu_text = '################### МЕНЮ \n'
+    #print(console_utility_dir, console_utility_parent)
     if console_utility_dir != console_utility_parent:
         menu_text = menu_text + '### [top] — Перейти в главную директорию \n'
         menu_text = menu_text + '### [back] — Вернуться в предыдущую директорию \n'
@@ -95,7 +96,10 @@ while console_utility_bool:
         console_utility_dir  = os.chdir(os.path.split(os.getcwd())[0])
         continue
     elif what_do == 'top':
-        console_utility_dir = os.chdir(console_utility_parent)
+        console_utility_dir = console_utility_parent 
+        os.chdir(console_utility_dir)
+        # console_utility_dir = os.path.split(os.getcwd())[0]
+        # print(os.path.split(os.getcwd()), os.chdir(console_utility_dir))
         continue
     if what_do in console_utility['do']:
         # Если клиент хочет выйти из программы
