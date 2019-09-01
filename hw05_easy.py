@@ -47,8 +47,11 @@ def show_folder(folder):
             return 'файл — ' + name
         else:
             return 'папка — ' + name + '/'
-
-    print("\n".join([file_or_folder(itm) for itm in os.listdir(folder)]))
+    test  = [file_or_folder(itm) for itm in os.listdir(folder)]
+    if test:
+        print("\n".join([file_or_folder(itm) for itm in os.listdir(folder)]))
+    else:
+        print("# — Директория пуста")
 
 show_folder(os.getcwd())
 
