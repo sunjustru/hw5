@@ -78,17 +78,17 @@ console_utility_parent = os.path.join(os.getcwd())
 
 def build_menu():
     menu_text = '################### МЕНЮ \n'
-    if console_utility_dir != os.path.abspath('.'):
+    if console_utility_dir != console_utility_parent:
         menu_text = menu_text + '### [top] — Перейти в главную директорию \n'
         menu_text = menu_text + '### [back] — Вернуться в предыдущую директорию \n'
     for itm in console_utility['do']:
         menu_text = menu_text + '# [' + itm + '] ' + console_utility['do'][itm]['name'][0] + '\n'
-    return menu_text + '###################\n'
+    return view_color('warning', menu_text + '###################\n')
 
 
 while console_utility_bool:
     print(build_menu())
-    what_do = input('# Выберите пункт меню: ')
+    what_do = input(view_color('question', '# Выберите пункт меню: '))
 
     # Ограничиваем хождение по директориям потомка!
     if console_utility_dir != console_utility_parent and what_do == 'back':
@@ -96,7 +96,7 @@ while console_utility_bool:
         continue
     elif what_do == 'top':
         console_utility_dir = os.chdir(console_utility_parent)
-
+        continue
     if what_do in console_utility['do']:
         # Если клиент хочет выйти из программы
         if int(what_do) == 5:
@@ -107,7 +107,7 @@ while console_utility_bool:
             temp = os.path.join(os.getcwd())
         else:
             name = console_utility['do'][what_do]['name'][1]
-            temp = input(name)
+            temp = input(view_color('answer', name))
 
         # Если мы решили перейти в другую папку
         # Делаем проверку на существование папки и сохранить новый путь console_utility_dir
@@ -115,13 +115,13 @@ while console_utility_bool:
             if os.path.exists(os.getcwd() + '/' + temp):
                 console_utility_dir = os.chdir(os.getcwd() + '/' + temp)
             else:
-                print('#### Директории не существует! ####')
+                print(view_color('error', '#### Директории не существует! ####'))
         else:
             console_utility['do'][what_do]['fn'](temp)
 
 
     else:
-        print('### Данного действия нет! ###')
+        print(view_color('error', '### Данного действия нет! ###'))
 
 if console_utility_bool == False:
     print('До свидание!')
