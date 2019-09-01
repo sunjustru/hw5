@@ -11,7 +11,6 @@
 # "Невозможно создать/удалить/перейти"
 
 import os
-import pprint
 
 
 def show_folder(folder):
@@ -71,7 +70,6 @@ console_utility = {
 }
 
 # Переменные
-__file__ = 'hw05_normal.py'
 console_utility_bool = True
 # путь по умолчанию
 console_utility_dir = os.path.abspath('.')
