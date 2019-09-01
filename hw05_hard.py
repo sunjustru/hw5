@@ -49,12 +49,12 @@ def copy_file():
     if not dir_name:
         print("Необходимо указать имя файла который вы хотите скопировать")
         return
-    dir_path = os.path.join(os.getcwd(), dir_name)
+    dir_path1 = os.path.join(os.getcwd(), dir_name)
+    dir_path2 = os.path.join(os.getcwd(), file_name)
     try:
-        shutil.copy2(dir_name, file_name)
+        shutil.copy2(dir_path1, dir_path2)
         print('файл {} скопирован'.format(dir_name))
     except FileNotFoundError:
-        #TODO: Нет проверки на есть файл с таким названием или нет
         print('файд {} с таким именем уже существует'.format(dir_name))
 
 def rm_file():
