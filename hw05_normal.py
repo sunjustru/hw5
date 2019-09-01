@@ -13,11 +13,11 @@
 import pprint
 
 console_utility = {
-    'action' : {
-        '1' : {
-            'name' : 'Перейти в папку',
+    'do': {
+        '1': {
+            'name': 'Перейти в папку',
             'fn': "Тут будет название функции move_folder",
-            'f_name': None # Указываем название сущности (название папки)
+            'f_name': None  # Указываем название сущности (название папки)
         },
         '2': {
             'name': 'Просмотреть содержимое текущей папки',
@@ -34,22 +34,61 @@ console_utility = {
             'fn': "Тут будет название функции make_folder",
             'f_name': None  # Указываем название сущности (название папки)
         },
+        '5': {
+            'name': 'Выйти из программы',
+            'fn': "Тут будет название функции make_folder",
+            'f_name': None  # Указываем название сущности (название папки)
+        }
     },
+    'question': {
+        '1': 'Уточните название папки',
+        '3': 'Уточните название папки',
+        '4': 'Уточните название папки'
+    },
+    'error': {
+        '1': 'Невозможно перейти в папку',
+        '3': 'Невозможно удалить папку',
+        '4': 'Невозможно создать папку'
+    }
 }
 
-pprint.pprint(console_utility)
+# pprint.pprint(console_utility)
 
-console_utility_bool =  True
+console_utility_bool = True
 folder_name = ''
 
+
+def build_menu():
+    menu_text = ''
+    for itm in console_utility['do']:
+        menu_text = menu_text + '[' + str(itm) + '] ' + str(console_utility['do'][itm]['name'] + '\n')
+    return menu_text
+
+
+print(build_menu())
+
 while console_utility_bool:
-    for itm in console_utility['action']:
-        print(itm)
-        console_utility_bool = False
-        break
+
+    what_do = input('Выберите пункт меню: ')
+
+    if what_do in console_utility['do']:
+        # Если клиент хочет выйти из программы
+        if int(what_do) == 5:
+            console_utility_bool = False
+            break
+
+        id   = what_do
+        name = console_utility['do'][what_do]['name']
+        fn = console_utility['do'][what_do]['fn']
+
+        temp = input(name)
 
 
+    else:
+        print('Данного действия нет!')
 
+if console_utility_bool == False:
+    print('До свидание!')
 
 # Для решения данной задачи используйте алгоритмы из задания easy,
 # оформленные в виде соответствующих функций,
