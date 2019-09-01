@@ -73,8 +73,8 @@ console_utility = {
 # Переменные
 console_utility_bool = True
 # путь по умолчанию
-console_utility_dir = os.path.abspath('.')
-
+console_utility_dir = os.path.join(os.getcwd())
+console_utility_parent = os.path.join(os.getcwd())
 
 def build_menu():
     menu_text = '################### МЕНЮ \n'
@@ -91,7 +91,7 @@ while console_utility_bool:
     what_do = input('# Выберите пункт меню: ')
 
     # Ограничиваем хождение по директориям потомка!
-    if os.path.split(console_utility_dir)[1] != 'hw5.git' and what_do == 'back':
+    if console_utility_dir != console_utility_parent and what_do == 'back':
         console_utility_dir = os.path.split(console_utility_dir)[0]
         continue
     elif what_do == 'top':
@@ -104,7 +104,7 @@ while console_utility_bool:
             break
 
         if int(what_do) == 2:
-            temp = console_utility_dir
+            temp = os.path.join(os.getcwd())
         else:
             name = console_utility['do'][what_do]['name'][1]
             temp = input(name)
@@ -113,7 +113,7 @@ while console_utility_bool:
         # Делаем проверку на существование папки и сохранить новый путь console_utility_dir
         if int(what_do) == 1:
             if os.path.exists(console_utility_dir + '/' + temp):
-                console_utility_dir = console_utility_dir + '/' + temp
+                console_utility_dir = os.chdir(console_utility_dir + '/' + temp)
             else:
                 print('#### Директории не существует! ####')
         else:
