@@ -56,7 +56,7 @@ def copy_file():
         shutil.copy2(dir_path1, dir_path2)
         print('файл {} скопирован'.format(dir_name))
     except FileNotFoundError:
-        print('файд {} с таким именем уже существует'.format(dir_name))
+        print('файд {} не возможно скопировать'.format(dir_name))
 
 def rm_file():
     if not dir_name:
