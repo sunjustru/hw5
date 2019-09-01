@@ -11,32 +11,32 @@
 # "Невозможно создать/удалить/перейти"
 
 import os
+from hw05_easy import *
+
+# def show_folder(folder):
+#     def file_or_folder(name):
+#         if os.path.isfile(name):
+#             return 'файл — ' + name
+#         else:
+#             return 'папка — ' + name + '/'
+#
+#     print("\n".join([file_or_folder(itm) for itm in os.listdir(folder)]))
 
 
-def show_folder(folder):
-    def file_or_folder(name):
-        if os.path.isfile(name):
-            return 'файл — ' + name
-        else:
-            return 'папка — ' + name + '/'
-
-    print("\n".join([file_or_folder(itm) for itm in os.listdir(folder)]))
-
-
-def folder_make(folder):
-    try:
-        os.mkdir(console_utility_dir + '/' + folder)
-        print("Вы создали папку — " + console_utility_dir + '/' + folder)
-    except:
-        print("Не получается создать папку, она уже существует!")
-
-
-def folder_del(folder):
-    try:
-        os.rmdir(console_utility_dir + '/' + folder)
-        print("Вы удалили папку — " + console_utility_dir + '/' + folder)
-    except:
-        print("Не получается удалить папку, она не существует")
+# def folder_make(folder):
+#     try:
+#         os.mkdir(console_utility_dir + '/' + folder)
+#         print("Вы создали папку — " + console_utility_dir + '/' + folder)
+#     except:
+#         print("Не получается создать папку, она уже существует!")
+#
+#
+# def folder_del(folder):
+#     try:
+#         os.rmdir(console_utility_dir + '/' + folder)
+#         print("Вы удалили папку — " + console_utility_dir + '/' + folder)
+#     except:
+#         print("Не получается удалить папку, она не существует")
 
 
 console_utility = {
