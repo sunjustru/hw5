@@ -70,7 +70,7 @@ def rm_file():
         print('файл {} не найден'.format(dir_name))
 
 def ls_dir():
-    print('Полный путь к текущей директории: ' +os.path.join(os.getcwd()))
+    print('Полный путь к текущей директории: ' + os.path.join(os.getcwd()))
 
 def cd_dir():
     if not dir_name:
@@ -78,10 +78,11 @@ def cd_dir():
         return
     try:
         os.chdir(dir_name)
-        print('вы перешли в директорию {}'.format(dir_name))
+        print('вы перешли в директорию {}'.format(os.getcwd()))
+
     except FileNotFoundError:
-        # TODO: Нет проверки на есть файл с таким названием или нет
         print('директория {} не найдена'.format(dir_name))
+
 
 do = {
     "help": print_help,
