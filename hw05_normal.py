@@ -13,110 +13,112 @@
 import os
 import pprint
 
+
 def show_folder(folder):
     print(os.listdir(folder))
 
-def folder_cd(folder):
-    pass
-
 def folder_make(folder):
-    result = False
     try:
-        os.mkdir(folder)
-        result = True
+        os.mkdir(console_utility_dir + '/' + folder)
+        print("Вы создали папку — " + console_utility_dir + '/' + folder)
     except:
         print("Не получается создать папку, она уже существует!")
-    return result
+
 
 def folder_del(folder):
-    result = False
     try:
-        os.rmdir(folder)
-        result = True
+        os.rmdir(console_utility_dir + '/' + folder)
+        print("Вы удалили папку — " + console_utility_dir + '/' + folder)
     except:
         print("Не получается удалить папку, она не существует")
-    return result
 
 
 console_utility = {
     'do': {
         '1': {
-            'name': 'Перейти в папку: ',
-            'fn': "Тут будет название функции move_folder",
+            'name': ['Перейти в папку: ', '## Укажите название папки: '],
+            'fn': None,
             'f_name': None  # Указываем название сущности (название папки)
         },
         '2': {
-            'name': 'Просмотреть содержимое текущей папки: ',
+            'name': ['Просмотреть содержимое текущей папки: '],
             'fn': show_folder,
             'f_name': None  # Указываем название сущности (название папки)
         },
         '3': {
-            'name': 'Удалить папку: ',
+            'name': ['Удалить папку: ', '## Укажите название папки: '],
             'fn': folder_del,
             'f_name': None  # Указываем название сущности (название папки)
         },
         '4': {
-            'name': 'Создать папку: ',
+            'name': ['Создать папку: ', '## Укажите название папки: '],
             'fn': folder_make,
             'f_name': None  # Указываем название сущности (название папки)
         },
         '5': {
-            'name': 'Выйти из программы: ',
+            'name': ['Вернуться в главную директорию: '],
+            'fn': "Тут будет название функции make_folder",
+            'f_name': None  # Указываем название сущности (название папки)
+        },
+        '6': {
+            'name': ['Выйти из программы: '],
             'fn': "Тут будет название функции make_folder",
             'f_name': None  # Указываем название сущности (название папки)
         }
-    },
-    'question': {
-        '1': 'Уточните название папки',
-        '3': 'Уточните название папки',
-        '4': 'Уточните название папки'
-    },
-    'error': {
-        '1': 'Невозможно перейти в папку',
-        '3': 'Невозможно удалить папку',
-        '4': 'Невозможно создать папку'
     }
 }
 
 # Переменные
+__file__ = 'hw05_normal.py'
 console_utility_bool = True
-console_utility_dir = '.'
-console_utility_folder_name = None
+# путь по умолчанию
+console_utility_dir = os.path.abspath('.')
+
 
 def build_menu():
-    menu_text = ''
+    menu_text = '################### МЕНЮ \n'
     for itm in console_utility['do']:
-        menu_text = menu_text + '[' + str(itm) + '] ' + str(console_utility['do'][itm]['name'] + '\n')
-    return menu_text
+        # Если мы находимся в главной директории, то не выводим 5 пункт
+        if itm == '5' and console_utility_dir == os.path.abspath('.'):
+            continue
+        menu_text = menu_text + '# [' + itm + '] ' + console_utility['do'][itm]['name'][0] + '\n'
+    return menu_text + '###################\n'
 
-
-print(build_menu())
 
 while console_utility_bool:
-
-    what_do = input('Выберите пункт меню: ')
+    print(build_menu())
+    what_do = input('# Выберите пункт меню: ')
 
     if what_do in console_utility['do']:
         # Если клиент хочет выйти из программы
-        if int(what_do) == 5:
+        if int(what_do) == 6:
             console_utility_bool = False
             break
 
-        id = what_do
-        name = console_utility['do'][what_do]['name']
+        # Пункт для возвращения в главную директоию
+        if int(what_do) == 5:
+            console_utility_dir = os.path.abspath('.')
+            continue
 
-        temp = input(name)
-        console_utility_folder_name = temp
+        if int(what_do) == 2:
+            temp = console_utility_dir
+        else:
+            name = console_utility['do'][what_do]['name'][1]
+            temp = input(name)
 
-        # Запускаем функцию
-        result = console_utility['do'][what_do]['fn'](console_utility_folder_name)
-
-        print(result)
+        # Если мы решили перейти в другую папку
+        # Делаем проверку на существование папки и сохранить новый путь console_utility_dir
+        if int(what_do) == 1:
+            if os.path.exists(console_utility_dir + '/' + temp):
+                console_utility_dir = console_utility_dir + '/' + temp
+            else:
+                print('#### Директории не существует! ####')
+        else:
+            console_utility['do'][what_do]['fn'](temp)
 
 
     else:
-        print('Данного действия нет!')
-        print(build_menu())
+        print('### Данного действия нет! ###')
 
 if console_utility_bool == False:
     print('До свидание!')
