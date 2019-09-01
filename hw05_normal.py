@@ -92,10 +92,10 @@ while console_utility_bool:
 
     # Ограничиваем хождение по директориям потомка!
     if console_utility_dir != console_utility_parent and what_do == 'back':
-        console_utility_dir = os.path.split(console_utility_dir)[0]
+        #console_utility_dir = os.path.split(console_utility_dir)[0]
         continue
     elif what_do == 'top':
-        console_utility_dir = os.path.abspath('.')
+        console_utility_dir = os.chdir(console_utility_parent)
 
     if what_do in console_utility['do']:
         # Если клиент хочет выйти из программы
@@ -112,8 +112,8 @@ while console_utility_bool:
         # Если мы решили перейти в другую папку
         # Делаем проверку на существование папки и сохранить новый путь console_utility_dir
         if int(what_do) == 1:
-            if os.path.exists(console_utility_dir + '/' + temp):
-                console_utility_dir = os.chdir(console_utility_dir + '/' + temp)
+            if os.path.exists(os.getcwd() + '/' + temp):
+                console_utility_dir = os.chdir(os.getcwd() + '/' + temp)
             else:
                 print('#### Директории не существует! ####')
         else:
