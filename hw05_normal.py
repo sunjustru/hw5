@@ -92,7 +92,7 @@ while console_utility_bool:
 
     # Ограничиваем хождение по директориям потомка!
     if console_utility_dir != console_utility_parent and what_do == 'back':
-        #console_utility_dir = os.path.split(console_utility_dir)[0]
+        console_utility_dir  = os.chdir(os.path.split(os.getcwd())[0])
         continue
     elif what_do == 'top':
         console_utility_dir = os.chdir(console_utility_parent)
